@@ -1,0 +1,110 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id             String          @id @default(uuid())
+  name           String
+  email          String          @unique
+  password       String
+  role           UserRole
+  refreshToken   String
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  stockMovements StockMovement[]
+
+  @@map("users")
+}
+
+enum UserRole {
+  ADMIN
+  MANAGER
+  STAFF
+}
+
+model Product {
+  id             String          @id @default(uuid())
+  name           String
+  sellingPrice   Decimal?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  inventories    Inventory[]
+  stockMovements StockMovement[]
+
+  @@map("products")
+}
+
+model Inventory {
+  id        String   @id @default(ulid())
+  productId String   @unique
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  product Product @relation(fields: [productId], references: [id])
+
+  @@map("inventory")
+}
+
+model Supplier {
+  id             String          @id @default(uuid())
+  name           String
+  email          String?
+  createdAt      DateTime        @default(now())
+  stockMovements StockMovement[]
+
+  @@map("suppliers")
+}
+
+model Customer {
+  id             String          @id @default(uuid())
+  name           String
+  email          String?
+  type           CustomerType
+  createdAt      DateTime        @default(now())
+  stockMovements StockMovement[]
+
+  @@map("customers")
+}
+
+enum CustomerType {
+  REGULAR
+  WALK_IN
+}
+
+enum StockMovementType {
+  PURCHASE
+  SALE
+  CUSTOMER_RETURN
+  SUPPLIER_RETURN
+}
+
+model StockMovement {
+  id          String            @id @default(uuid())
+  productId   String
+  type        StockMovementType
+  quantity    Int
+  price       Decimal
+  totalAmount Decimal
+  supplierId  String?
+  customerId  String?
+  userId      String
+  createdAt   DateTime          @default(now())
+
+  product  Product   @relation(fields: [productId], references: [id])
+  supplier Supplier? @relation(fields: [supplierId], references: [id])
+  customer Customer? @relation(fields: [customerId], references: [id])
+  user     User      @relation(fields: [userId], references: [id])
+
+  @@map("stock_movements")
+}
