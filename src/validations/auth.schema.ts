@@ -5,6 +5,7 @@ const registerSchema = z.object({
   email: z.email(),
   password: z.string().min(6),
   role: z.enum(['ADMIN', 'MANAGER', 'STAFF']),
+  refreshToken: z.string().optional(),
 })
 
 const loginSchema = z.object({
@@ -12,7 +13,7 @@ const loginSchema = z.object({
   password: z.string().min(6),
 })
 
-type RegisterType = z.infer<typeof registerSchema>
-type LoginType = z.infer<typeof loginSchema>
+type TRegister = z.infer<typeof registerSchema>
+type TLogin = z.infer<typeof loginSchema>
 
-export { registerSchema, loginSchema, RegisterType, LoginType }
+export { registerSchema, loginSchema, TRegister, TLogin }
