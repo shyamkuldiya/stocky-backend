@@ -54,7 +54,7 @@ model Inventory {
 model Supplier {
   id             String          @id @default(uuid())
   name           String
-  email          String?
+  email          String          @unique
   createdAt      DateTime        @default(now())
   stockMovements StockMovement[]
 

@@ -8,7 +8,8 @@ function validate<T>(schema: ZodType<T>) {
       next()
     } catch (error) {
       if (error instanceof ZodError) {
-        return res.status(400).json({ error: error.message })
+        const err = JSON.parse(error.message)
+        return res.status(400).json({ error: err[0].message })
       }
     }
   }

@@ -41,16 +41,26 @@ async function loginUser(data: TLogin) {
     const isUserExists = await prisma.user.findUnique({
       where: {
         email,
-        password,
       },
     })
 
     if (!isUserExists) {
       throw new Error('User does not exists')
     }
+
+    const isPasswordValid = bcrypt.compareSync(password, isUserExists.password)
+
+    if (!isPasswordValid) {
+      throw new Error('Invalid password')
+    }
+
+    const { password: _, ...userWithoutPassword } = isUserExists
+    return {
+      data: userWithoutPassword,
+    }
   } catch (error) {
     throw error
   }
 }
 
-export { registerUser }
+export { registerUser, loginUser }

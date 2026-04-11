@@ -144,7 +144,7 @@ export type SupplierGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 export type SupplierGroupByOutputType = {
   id: string
   name: string
-  email: string | null
+  email: string
   createdAt: Date
   _count: SupplierCountAggregateOutputType | null
   _min: SupplierMinAggregateOutputType | null
@@ -172,7 +172,7 @@ export type SupplierWhereInput = {
   NOT?: Prisma.SupplierWhereInput | Prisma.SupplierWhereInput[]
   id?: Prisma.StringFilter<"Supplier"> | string
   name?: Prisma.StringFilter<"Supplier"> | string
-  email?: Prisma.StringNullableFilter<"Supplier"> | string | null
+  email?: Prisma.StringFilter<"Supplier"> | string
   createdAt?: Prisma.DateTimeFilter<"Supplier"> | Date | string
   stockMovements?: Prisma.StockMovementListRelationFilter
 }
@@ -180,26 +180,26 @@ export type SupplierWhereInput = {
 export type SupplierOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  email?: Prisma.SortOrderInput | Prisma.SortOrder
+  email?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   stockMovements?: Prisma.StockMovementOrderByRelationAggregateInput
 }
 
 export type SupplierWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  email?: string
   AND?: Prisma.SupplierWhereInput | Prisma.SupplierWhereInput[]
   OR?: Prisma.SupplierWhereInput[]
   NOT?: Prisma.SupplierWhereInput | Prisma.SupplierWhereInput[]
   name?: Prisma.StringFilter<"Supplier"> | string
-  email?: Prisma.StringNullableFilter<"Supplier"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Supplier"> | Date | string
   stockMovements?: Prisma.StockMovementListRelationFilter
-}, "id">
+}, "id" | "email">
 
 export type SupplierOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  email?: Prisma.SortOrderInput | Prisma.SortOrder
+  email?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.SupplierCountOrderByAggregateInput
   _max?: Prisma.SupplierMaxOrderByAggregateInput
@@ -212,14 +212,14 @@ export type SupplierScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SupplierScalarWhereWithAggregatesInput | Prisma.SupplierScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Supplier"> | string
   name?: Prisma.StringWithAggregatesFilter<"Supplier"> | string
-  email?: Prisma.StringNullableWithAggregatesFilter<"Supplier"> | string | null
+  email?: Prisma.StringWithAggregatesFilter<"Supplier"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Supplier"> | Date | string
 }
 
 export type SupplierCreateInput = {
   id?: string
   name: string
-  email?: string | null
+  email: string
   createdAt?: Date | string
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutSupplierInput
 }
@@ -227,7 +227,7 @@ export type SupplierCreateInput = {
 export type SupplierUncheckedCreateInput = {
   id?: string
   name: string
-  email?: string | null
+  email: string
   createdAt?: Date | string
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutSupplierInput
 }
@@ -235,7 +235,7 @@ export type SupplierUncheckedCreateInput = {
 export type SupplierUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stockMovements?: Prisma.StockMovementUpdateManyWithoutSupplierNestedInput
 }
@@ -243,7 +243,7 @@ export type SupplierUpdateInput = {
 export type SupplierUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutSupplierNestedInput
 }
@@ -251,21 +251,21 @@ export type SupplierUncheckedUpdateInput = {
 export type SupplierCreateManyInput = {
   id?: string
   name: string
-  email?: string | null
+  email: string
   createdAt?: Date | string
 }
 
 export type SupplierUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SupplierUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -295,10 +295,6 @@ export type SupplierNullableScalarRelationFilter = {
   isNot?: Prisma.SupplierWhereInput | null
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type SupplierCreateNestedOneWithoutStockMovementsInput = {
   create?: Prisma.XOR<Prisma.SupplierCreateWithoutStockMovementsInput, Prisma.SupplierUncheckedCreateWithoutStockMovementsInput>
   connectOrCreate?: Prisma.SupplierCreateOrConnectWithoutStockMovementsInput
@@ -318,14 +314,14 @@ export type SupplierUpdateOneWithoutStockMovementsNestedInput = {
 export type SupplierCreateWithoutStockMovementsInput = {
   id?: string
   name: string
-  email?: string | null
+  email: string
   createdAt?: Date | string
 }
 
 export type SupplierUncheckedCreateWithoutStockMovementsInput = {
   id?: string
   name: string
-  email?: string | null
+  email: string
   createdAt?: Date | string
 }
 
@@ -348,14 +344,14 @@ export type SupplierUpdateToOneWithWhereWithoutStockMovementsInput = {
 export type SupplierUpdateWithoutStockMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SupplierUncheckedUpdateWithoutStockMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -436,7 +432,7 @@ export type $SupplierPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
-    email: string | null
+    email: string
     createdAt: Date
   }, ExtArgs["result"]["supplier"]>
   composites: {}
